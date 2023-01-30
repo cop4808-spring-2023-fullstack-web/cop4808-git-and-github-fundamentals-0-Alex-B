@@ -6,16 +6,131 @@ let secondOperator = null;
 let result = null;
 const buttons = document.querySelectorAll('button');
 
+let Shift = false;
+
+window.addEventListener('keyup', function(e){
+    let code = e.code;
+    if (Shift)
+    {
+        if(e.code == "ShiftLeft")
+        {
+            console.log("Shift UP")
+            Shift = false
+        }
+    }
+});
+
 window.addEventListener('keydown', function(e){
-    const key = document.querySelector(`button[data-key='${e.keyCode}']`);
-    key.click();
+    let code = e.code;
+    let num = -1;
+    if (Shift == false)
+    {
+        if (code == "Digit0" || code == "Numpad0")
+        {
+            num = 48
+        }
+        if (code == "Digit1" || code == "Numpad1")
+        {
+            num = 49
+        }
+        if (code == "Digit2" || code == "Numpad2")
+        {
+            num = 50
+        }
+        if (code == "Digit3" || code == "Numpad3")
+        {
+            num = 51
+        }
+        if (code == "Digit4" || code == "Numpad4")
+        {
+            num = 52
+        }
+        if (code == "Digit5" || code == "Numpad5")
+        {
+            num = 53
+        }
+        if (code == "Digit6" || code == "Numpad6")
+        {
+            num = 54
+        }
+        if (code == "Digit7" || code == "Numpad7")
+        {
+            num = 55
+        }
+        if (code == "Digit8" || code == "Numpad8")
+        {
+            num = 56
+        }
+        if (code == "Digit9" || code == "Numpad9")
+        {
+            num = 57
+        }
+        if (code == "Equal" || code == "Enter" || code == "NumpadEnter")
+        {
+            inputEquals();
+        }    
+    }
+    if (Shift == true)
+    {
+        if (code == "Digit5")
+        {
+            inputPercent();
+        }
+        if (code == "Digit8")
+        {
+            inputOperator("*");
+        }
+        if (code == "Equal")
+        {
+            inputOperator("+");
+        }
+    }
+    if (code == "NumpadAdd")
+    {
+        inputOperator("+");
+    }
+    if (code == "Backspace")
+    {
+        inputBackspace();
+    }
+    if (code == "Minus" || code == "NumpadSubtract")
+    {
+        inputOperator("-");
+    }
+    if (code == "Slash" || code == "NumpadDivide")
+    {
+        inputOperator("/");
+    }
+    if (code == "Period" || code == "NumpadDecimal")
+    {
+        inputDecimal(".");
+    }
+    if (code == "NumpadMultiply")
+    {
+        inputOperator("*");
+    }
+
+    if (code == "ShiftLeft")
+    {
+        Shift = true;
+    }
+
+    const key = document.querySelector(`button[data-key='${num}']`);
+    console.log("Key:" + e.code)
+    if (num != -1)
+    {
+        key.click();
+    }
+    updateDisplay();
 });
 
 function updateDisplay() {
     const display = document.getElementById('display');
     display.innerText = displayValue;
     if(displayValue.length > 9) {
-        display.innerText = displayValue.substring(0, 9);
+        console.error("Overflow Possible:" + displayValue)
+        display.innerText = displayValue.substring(1, 10);
+        displayValue = displayValue.substring(1, 10);
     }
 }
   
@@ -99,7 +214,8 @@ function inputEquals() {
     //hitting equals doesn't display undefined before operate()
     if(firstOperator === null) {
         displayValue = displayValue;
-    } else if(secondOperator != null) {
+    } 
+    else if(secondOperator != null) {
         //handles final result
         secondOperand = displayValue;
         result = operate(Number(firstOperand), Number(secondOperand), secondOperator);
@@ -113,7 +229,8 @@ function inputEquals() {
             secondOperator = null;
             result = null;
         }
-    } else {
+    } 
+    else {
         //handles first operation
         secondOperand = displayValue;
         result = operate(Number(firstOperand), Number(secondOperand), firstOperator);
@@ -127,6 +244,22 @@ function inputEquals() {
             secondOperator = null;
             result = null;
         }
+    }
+    if (displayValue.includes("e") && displayValue.length > 9)
+    {
+        console.error("E Contained")
+        let cut = displayValue.indexOf("e");
+        let start = displayValue.length - cut;
+        console.error(displayValue);
+        displayValue = displayValue.substring(0, start+1) + displayValue.substring(cut, displayValue.length);
+
+        //Testing E fix
+        let fix = Number(displayValue);
+        fix = fix.toLocaleString('fullwide', {useGrouping:false});
+        console.error("Fix:" + fix);
+
+        //Experimental
+        //fix = secondOperand;
     }
 }
 
@@ -157,9 +290,15 @@ function clearDisplay() {
 }
 
 function inputBackspace() {
-    if(firstOperand != null) {
-        firstOperand = null;
-        updateDisplay();
+    if(displayValue.length > 1) {
+        let cut = displayValue.length-1;
+        display.innerText = displayValue.substring(0, cut);
+        displayValue = displayValue.substring(0, cut);
+    }
+    else 
+    {
+        display.innerText = 0;
+        displayValue = 0;
     }
 }
 
