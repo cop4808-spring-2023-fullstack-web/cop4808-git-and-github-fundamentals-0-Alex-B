@@ -110,7 +110,8 @@ button {
 }
 
 .rand {
-    background-color: dodgerblue;
+    background-color: yellow;
+    font-weight: bold;
 }
 
 .rand:active {
@@ -118,7 +119,8 @@ button {
 }
 
 .e {
-    background-color: dodgerblue;
+    background-color: yellow;
+    font-weight: bold;
 }
 
 .e:active {

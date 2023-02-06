@@ -74,7 +74,8 @@ window.addEventListener('keydown', function(e){
     {
         if (code == "Digit5")
         {
-            inputPercent();
+            console.log("Percent Recived")
+            num = 80
         }
         if (code == "Digit8")
         {
@@ -83,6 +84,10 @@ window.addEventListener('keydown', function(e){
         if (code == "Equal")
         {
             inputOperator("+");
+        }
+        if (code == "Digit6")
+        {
+            num = 103;
         }
     }
     if (code == "NumpadAdd")
@@ -109,6 +114,22 @@ window.addEventListener('keydown', function(e){
     {
         inputOperator("*");
     }
+    if (code == "KeyE")
+    {
+        num = 102;
+    }
+    if (code == "Escape")
+    {
+        num = 8;
+    }
+    if (code == "KeyR")
+    {
+        num = 101;
+    }
+    if (code == "KeyM")
+    {
+        num = 104;
+    }
 
     if (code == "ShiftLeft")
     {
@@ -129,8 +150,29 @@ function updateDisplay() {
     display.innerText = displayValue;
     if(displayValue.length > 9) {
         console.error("Overflow Possible:" + displayValue)
-        display.innerText = displayValue.substring(1, 10);
-        displayValue = displayValue.substring(1, 10);
+        if(displayValue.includes(".") && !displayValue.includes("e"))
+        {
+            let cut = displayValue.indexOf(".");
+            console.error(displayValue);
+            if(cut < 9)
+            {
+                console.log("Reduction Needed");
+                console.error("Found . at:" + cut);
+                var p1 = displayValue.substring(0, cut).toString();
+                var p2 = displayValue.substring(cut, 9).toString();
+                let p3 = p1 + p2
+                console.error("Part 1:" + p1)
+                console.error("Part 2:" + p2)
+                console.error("Part 3:" + p3)
+                display.innerText = p3
+                displayValue = p3;
+            }
+        }
+        else
+        {
+            display.innerText = displayValue.substring(1, 10);
+            displayValue = displayValue.substring(1, 10);
+        }
     }
 }
   
