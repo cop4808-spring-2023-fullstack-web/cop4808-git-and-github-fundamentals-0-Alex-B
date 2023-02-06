@@ -156,9 +156,17 @@ function clickButton() {
             } else if(buttons[i].classList.contains('sign')) {
                 inputSign(displayValue);
                 updateDisplay();
-            } else if(buttons[i].classList.contains('clear'))
+            } 
+            else if(buttons[i].classList.contains('clear'))
+            {
                 clearDisplay();
                 updateDisplay();
+            }
+            else if(buttons[i].classList.contains('rand'))
+            {
+                displayValue = inputRand(displayValue);
+                updateDisplay();
+            }
         }
     )}
 }
@@ -272,6 +280,10 @@ function inputDecimal(dot) {
     } 
 }
 
+function inputRand(num) {
+    return Math.abs(Math.floor(Math.random() * (num)))
+}
+
 function inputPercent(num) {
     displayValue = (num/100).toString();
 }
@@ -320,6 +332,10 @@ function operate(x, y, op) {
     {
         console.log("Result:"+Math.pow(x,y));
         return Math.pow(x,y);
+    }
+    else if(op === "%")
+    {
+        return x%y;
     }
 }
 
