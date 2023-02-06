@@ -10,3 +10,6 @@ Alexander Berry | Z23442156
 - Four Functions have been added: rand, the e constant (e), exponet (x<sup>y</sup>), and remainder (mod)
 - Additional Keyboard Shortcuts have been added for AC (clear) and the 4 new functions
 - Fixed an issue where large decimal numbers (without scientific notation) were cut off
+
+## New Functions
+![](img/Animation.gif)
