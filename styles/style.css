@@ -116,3 +116,11 @@ button {
 .rand:active {
     background-color: rgb(123, 189, 255);
 }
+
+.e {
+    background-color: dodgerblue;
+}
+
+.e:active {
+    background-color: rgb(123, 189, 255);
+}

@@ -167,6 +167,12 @@ function clickButton() {
                 displayValue = inputRand(displayValue);
                 updateDisplay();
             }
+            else if(buttons[i].classList.contains('e'))
+            {
+                inputE(displayValue);
+                updateDisplay();
+            }
+
         }
     )}
 }
@@ -290,6 +296,11 @@ function inputPercent(num) {
 
 function inputSign(num) {
     displayValue = (num * -1).toString();
+}
+
+function inputE() {
+    var E = Math.E.toString();
+    displayValue = E.substring(0,9);
 }
 
 function clearDisplay() {
